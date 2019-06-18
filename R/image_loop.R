@@ -12,7 +12,10 @@ image_loop <- function(image, max.tries = 10) {
     pca_plot(image$image, i)
 
     continue <- readline(prompt='Any idea what it could be?\n Press Y to reveal the correct answer, N to continue with more components, or Q to give up.')
-    if (continue %in% c('y', 'Y', 'q', 'Q')) break
+    if (continue %in% c('y', 'Y', 'q', 'Q')) {
+      points <- (max.tries+1) - which(n_comps == i)
+      break
+    }
   }
 
   if (continue %in% c('y', 'Y')) {
@@ -20,11 +23,11 @@ image_loop <- function(image, max.tries = 10) {
     message(paste0('\nThe correct answer is: ', image$title, ' by ', image$artist, '.'))
     
     message(paste('\nWas your answer correct?\nY: Yes\nN: No\n'))
-    correct <- scan('',what='character',nmax=1,quiet=TRUE)
+    correct <- readline()
     
-    if (correct %in% c('Y', 'y')) return(TRUE)
+    if (correct %in% c('Y', 'y')) return(points)
   }
 
-  return(FALSE)
+  return(0)
 
 }
