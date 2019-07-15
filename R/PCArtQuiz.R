@@ -1,7 +1,7 @@
 #'@export
 PCArtQuiz <- function(database = NULL, n.images = 10, max.tries = 10) {
   
-  if (is.null(database)) data('database1', envir = environment())
+  if (is.null(database)) data('database1', envir = environment(), package = 'PCArt')
   else load(database, envir = environment())
   
   img_ind <- unlist(eapply(environment(), function(x) class(x) == 'PCArtImage'))
